@@ -451,23 +451,26 @@ abstract class _Clear implements LoginEvent {
 mixin _$LoginState {
   String? get userName => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String? userName, String? password, bool isSuccess)
+            String? userName, String? password, String? error, bool isSuccess)
         success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? userName, String? password, bool isSuccess)?
+    TResult? Function(
+            String? userName, String? password, String? error, bool isSuccess)?
         success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? userName, String? password, bool isSuccess)?
+    TResult Function(
+            String? userName, String? password, String? error, bool isSuccess)?
         success,
     required TResult orElse(),
   }) =>
@@ -500,7 +503,8 @@ abstract class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call({String? userName, String? password, bool isSuccess});
+  $Res call(
+      {String? userName, String? password, String? error, bool isSuccess});
 }
 
 /// @nodoc
@@ -518,6 +522,7 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   $Res call({
     Object? userName = freezed,
     Object? password = freezed,
+    Object? error = freezed,
     Object? isSuccess = null,
   }) {
     return _then(_value.copyWith(
@@ -528,6 +533,10 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
       password: freezed == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String?,
       isSuccess: null == isSuccess
           ? _value.isSuccess
@@ -545,7 +554,8 @@ abstract class _$$SuccessImplCopyWith<$Res>
       __$$SuccessImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? userName, String? password, bool isSuccess});
+  $Res call(
+      {String? userName, String? password, String? error, bool isSuccess});
 }
 
 /// @nodoc
@@ -561,6 +571,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
   $Res call({
     Object? userName = freezed,
     Object? password = freezed,
+    Object? error = freezed,
     Object? isSuccess = null,
   }) {
     return _then(_$SuccessImpl(
@@ -571,6 +582,10 @@ class __$$SuccessImplCopyWithImpl<$Res>
       password: freezed == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String?,
       isSuccess: null == isSuccess
           ? _value.isSuccess
@@ -584,7 +599,10 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 class _$SuccessImpl implements _Success {
   const _$SuccessImpl(
-      {this.userName = '', this.password = '', this.isSuccess = false});
+      {this.userName = '',
+      this.password = '',
+      this.error = '',
+      this.isSuccess = false});
 
   @override
   @JsonKey()
@@ -594,11 +612,14 @@ class _$SuccessImpl implements _Success {
   final String? password;
   @override
   @JsonKey()
+  final String? error;
+  @override
+  @JsonKey()
   final bool isSuccess;
 
   @override
   String toString() {
-    return 'LoginState.success(userName: $userName, password: $password, isSuccess: $isSuccess)';
+    return 'LoginState.success(userName: $userName, password: $password, error: $error, isSuccess: $isSuccess)';
   }
 
   @override
@@ -610,12 +631,14 @@ class _$SuccessImpl implements _Success {
                 other.userName == userName) &&
             (identical(other.password, password) ||
                 other.password == password) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.isSuccess, isSuccess) ||
                 other.isSuccess == isSuccess));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userName, password, isSuccess);
+  int get hashCode =>
+      Object.hash(runtimeType, userName, password, error, isSuccess);
 
   @JsonKey(ignore: true)
   @override
@@ -627,30 +650,32 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String? userName, String? password, bool isSuccess)
+            String? userName, String? password, String? error, bool isSuccess)
         success,
   }) {
-    return success(userName, password, isSuccess);
+    return success(userName, password, error, isSuccess);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? userName, String? password, bool isSuccess)?
+    TResult? Function(
+            String? userName, String? password, String? error, bool isSuccess)?
         success,
   }) {
-    return success?.call(userName, password, isSuccess);
+    return success?.call(userName, password, error, isSuccess);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? userName, String? password, bool isSuccess)?
+    TResult Function(
+            String? userName, String? password, String? error, bool isSuccess)?
         success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(userName, password, isSuccess);
+      return success(userName, password, error, isSuccess);
     }
     return orElse();
   }
@@ -688,12 +713,15 @@ abstract class _Success implements LoginState {
   const factory _Success(
       {final String? userName,
       final String? password,
+      final String? error,
       final bool isSuccess}) = _$SuccessImpl;
 
   @override
   String? get userName;
   @override
   String? get password;
+  @override
+  String? get error;
   @override
   bool get isSuccess;
   @override

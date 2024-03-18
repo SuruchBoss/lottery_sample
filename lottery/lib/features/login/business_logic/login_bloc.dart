@@ -21,6 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       const LoginState.success(
         userName: '',
         password: '',
+        error: '',
       ),
     );
   }
@@ -29,13 +30,28 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     _Login event,
     Emitter<LoginState> emit,
   ) async {
-    print(event.userName);
-    print(event.password);
-    emit(
-      const LoginState.success(
-        userName: '',
-        password: '',
-      ),
-    );
+    bool isSuccess = false;
+
+    if (event.userName == 'admin' && event.password == 'admin') {
+      isSuccess = true;
+
+      emit(
+        LoginState.success(
+          userName: event.userName,
+          password: event.password,
+          isSuccess: isSuccess,
+          error: '',
+        ),
+      );
+    } else {
+      emit(
+        LoginState.success(
+          userName: event.userName,
+          password: event.password,
+          isSuccess: isSuccess,
+          error: "Incorrect Login",
+        ),
+      );
+    }
   }
 }
