@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lottery/features/login/presentation/screen/loginscreen.dart';
 import 'package:lottery/features/market/model/lottery_model.dart';
@@ -18,12 +20,8 @@ class _MarketScreenState extends State<MarketScreen> {
   final box5Controller = TextEditingController();
   final box6Controller = TextEditingController();
 
-  List<LotteryModel> lotteryList = [
-    const LotteryModel(lotteryNumber: "123456"),
-    const LotteryModel(lotteryNumber: "123222"),
-    const LotteryModel(lotteryNumber: "123333"),
-    const LotteryModel(lotteryNumber: "123445")
-  ];
+  List<LotteryModel> lotteryList = [];
+  List<LotteryModel> myLottery = [];
 
   void _logOut() {
     Navigator.pushReplacement(
@@ -34,7 +32,46 @@ class _MarketScreenState extends State<MarketScreen> {
     );
   }
 
-  void _generatedLottery() {}
+  void _addMyLottery(LotteryModel lottery) {
+    myLottery.add(lottery);
+  }
+
+  void _generatedLottery() {
+    Random random = Random();
+    lotteryList.clear();
+
+    for (var i = 0; i < 4; i++) {
+      String firstDigit = box1Controller.text == ''
+          ? random.nextInt(10).toString()
+          : box1Controller.text;
+      String secondDigit = box2Controller.text == ''
+          ? random.nextInt(10).toString()
+          : box2Controller.text;
+      String thirdDigit = box3Controller.text == ''
+          ? random.nextInt(10).toString()
+          : box3Controller.text;
+      String forthDigit = box4Controller.text == ''
+          ? random.nextInt(10).toString()
+          : box4Controller.text;
+      String fifthDigit = box5Controller.text == ''
+          ? random.nextInt(10).toString()
+          : box5Controller.text;
+      String sixthDigit = box6Controller.text == ''
+          ? random.nextInt(10).toString()
+          : box6Controller.text;
+
+      String totalNumber = firstDigit +
+          secondDigit +
+          thirdDigit +
+          forthDigit +
+          fifthDigit +
+          sixthDigit;
+
+      setState(() {
+        lotteryList.add(LotteryModel(lotteryNumber: totalNumber));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,11 +258,12 @@ class _MarketScreenState extends State<MarketScreen> {
                 color: Colors.red[600],
               ),
               const SizedBox(
-                height: 15,
+                height: 5,
               ),
               LotteryList(
                 lotteryList: lotteryList,
-              )
+                addMyLottery: _addMyLottery,
+              ),
             ],
           ),
         ),
