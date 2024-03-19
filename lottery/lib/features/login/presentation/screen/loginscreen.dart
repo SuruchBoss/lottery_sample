@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (isSuccess) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => const MarketScreen(),
@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'admin',
+                            labelText: 'user name',
                             hintText: 'admin',
                           ),
                         ),
